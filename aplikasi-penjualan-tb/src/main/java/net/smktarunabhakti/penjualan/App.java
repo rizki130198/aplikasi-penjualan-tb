@@ -14,6 +14,6 @@ public class App
     {
         appCtx = new ClassPathXmlApplicationContext(
                 "classpath:net/smktarunabhakti/penjualan/"
-                + "applicationContext/xml");         
+                + "applicationContext.xml");         
     }
 }
