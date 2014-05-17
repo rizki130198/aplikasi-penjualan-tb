@@ -1,5 +1,8 @@
 package net.smktarunabhakti.penjualan.service.impl;
 
+import net.smktarunabhakti.penjualan.dao.BarangDao;
+import net.smktarunabhakti.penjualan.domain.Barang;
+import net.smktarunabhakti.penjualan.service.AppService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
@@ -7,10 +10,6 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.util.StringUtils;
-
-import net.smktarunabhakti.penjualan.dao.BarangDao;
-import net.smktarunabhakti.penjualan.domain.Barang;
-import net.smktarunabhakti.penjualan.service.AppService;
 
 @SuppressWarnings("unchecked")
 @Service("appService")
@@ -54,5 +53,9 @@ public class AppServiceImpl implements AppService {
 		// TODO Auto-generated method stub
 		return barangDao.count();
 	}
+
+    public Object cariSemuaBarang(java.awt.print.Pageable pageable) {
+        throw new UnsupportedOperationException("Not supported yet.");
+    }
 
 }

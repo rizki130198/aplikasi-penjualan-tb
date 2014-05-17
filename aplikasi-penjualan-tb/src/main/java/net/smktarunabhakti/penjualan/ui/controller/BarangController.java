@@ -6,11 +6,15 @@ package net.smktarunabhakti.penjualan.ui.controller;
 
 import java.net.URI;
 import java.util.List;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.validation.Valid;
+
 import net.smktarunabhakti.penjualan.domain.Barang;
 import net.smktarunabhakti.penjualan.service.AppService;
+
+import org.apache.http.protocol.HttpService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
@@ -25,7 +29,7 @@ import org.springframework.web.util.UriTemplate;
 
 /**
  *
- * @author Toshiba
+ * @author asus
  */
 @Controller
 public class BarangController {
@@ -44,26 +48,32 @@ public class BarangController {
                 .getContent();
         return hasil;
     }
-    
     @RequestMapping("/barang/{id}")
     @ResponseBody
-    public Barang findById(@PathVariable String id) {
-        Barang barang = appService.cariBarangById(id);
-        if (barang == null) {
-            throw new IllegalStateException();
-        }
-        return barang;
+    public Barang findById(@PathVariable String id){
+    	Barang barang = appService.cariBarangById(id);
+    	if (barang == null) {
+    		throw new IllegalStateException();
+    	}
+    	return barang;
     }
-    
-    @RequestMapping(value="/barang", method= RequestMethod.POST)
-    @ResponseStatus(HttpStatus.CREATED)
+    @RequestMapping(value = "/barang", method = RequestMethod.POST)
+   @ResponseStatus(HttpStatus.CREATED)
     public void create(@RequestBody @Valid Barang x,
-            HttpServletRequest request,
-            HttpServletResponse response) {
-        appService.simpanBarang(x);
-        String requestUrl = request.getRequestURI().toString();
-        URI uri = new UriTemplate("{requestUrl}/{id}")
-                .expand(requestUrl, x.getId());
-        response.setHeader("Location", uri.toASCIIString());
+    		HttpServletRequest request,
+    		HttpServletResponse response){
+    	appService.simpanBarang(x);
+    	String requestUrl = request.getRequestURI().toString();
+    	URI uri = new UriTemplate("{requestUrl}/(id)").expand(requestUrl, x.getId());
+    	response.setHeader("Location", uri.toASCIIString());
+    }
+    @RequestMapping(method = RequestMethod.DELETE, value = "/barang/{id}")
+    @ResponseStatus(HttpStatus.OK)
+    public void delete(@PathVariable String id){
+    	Barang barang = appService.cariBarangById(id);
+    	if (barang == null){
+    		throw new IllegalStateException();
+    	}
+    	appService.hapusBarang(barang);
     }
 }
