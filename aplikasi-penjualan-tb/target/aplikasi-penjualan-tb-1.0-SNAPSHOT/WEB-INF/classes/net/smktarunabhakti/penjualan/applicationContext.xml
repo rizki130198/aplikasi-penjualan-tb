@@ -59,6 +59,6 @@
 
 <bean id="sessionFactory" class="org.springframework.orm.hibernate4.LocalSessionFactoryBean"
     p:dataSource-ref="dataSource"
-    p:configLocation="classpath:hibernate.cf.xml">
+    p:configLocation="classpath:hibernate.cfg.xml">
 </bean>
 </beans>
